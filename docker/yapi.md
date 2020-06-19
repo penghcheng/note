@@ -2,15 +2,15 @@
 
 #### 1、下载 YAPI 到本地
     wget https://github.com/YMFE/yapi/archive/v1.9.2.tar.gz
-    tar -zxvf v1.9.2.tar.gz && cd yapi-1.9.2
+    tar -zxvf v1.9.2.tar.gz && mv yapi-1.9.2 yapi && mv yapi /data
     
 #### 2、编辑 Dockerfile
     FROM node:12-alpine as builder
         
     RUN apk add --no-cache git python make openssl tar gcc
         
-    RUN cd /api/vendors && \
-        npm install --production --registry https://registry.npm.taobao.org
+    RUN mkdir -p /api/vendors && cd /api/vendors && \
+            npm install --production --registry https://registry.npm.taobao.org
         
     FROM node:12-alpine
         
@@ -20,9 +20,9 @@
         
     WORKDIR ${HOME}
         
-    COPY --from=builder ./ /api/vendors
+    COPY --from=builder /data/yapi /api/vendors
         
-    COPY config.json /api/
+    COPY /data/yapi/config.json /api/
         
     EXPOSE 3000
         
