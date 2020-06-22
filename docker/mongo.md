@@ -3,4 +3,12 @@
     
     mongo
     use admin
-    db.createUser({ user: 'admin', pwd: 'RnOiNEUDmluUjGPT', roles: [ { role: "root", db: "admin" } ] });
+    db.createUser({ user: 'admin', pwd: 'RnOiNEUDmluUjGPT', roles: [ { role: "root", db: "admin" } ] })
+    
+    db.auth("admin", "RnOiNEUDmluUjGPT")
+    
+    use yapi
+    db.createUser({ user: 'yapi', pwd: 'RnOiNEUDmluUjGPT', roles: [ { role: "readWrite", db: "yapi" } ] })
+    
+    db.auth("yapi", "RnOiNEUDmluUjGPT")
+    
